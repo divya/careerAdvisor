@@ -7,7 +7,7 @@
     <h3>From</h3>
     <p>Select your current job title</p>
 
-    <input id="from" type="text" name="fromNode" value="fromNode"/>
+    <input id="from" type="text" name="fromNode"/>
 
      <!-- <select name="fromNode">
       {# {% for job in jobs %}
@@ -20,7 +20,7 @@
     <h3>To</h3>
     <p>See paths from your current position to a different job title</p>
 
-    <input id="to" type="text" name="toNode" value="toNode"/>
+    <input id="to" type="text" name="toNode"/>
 
     <!--<select name="toNode">
       {# {% for job in jobs %}
@@ -36,14 +36,14 @@
     $(document).ready(function(){
      $( "input#from" ).autocomplete({
         source: "{% url 'paths:autocomplete_job' %}",
-        minLength: 2
+        minLength: 1
       });
     });
 
     $(document).ready(function(){
      $( "input#to" ).autocomplete({
         source: "{% url 'paths:autocomplete_job' %}",
-        minLength: 2
+        minLength: 1
       });
     });
   </script>

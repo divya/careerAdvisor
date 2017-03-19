@@ -1,19 +1,28 @@
 <!DOCTYPE html>
 <html>
-
   <head>
     <meta charset="utf-8">
     <title>Career Advisor</title>
 
+    {% load staticfiles %}
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="/resources/demos/style.css">
+    <!-- <link rel="stylesheet" href="/resources/demos/style.css"> -->
+
+
+    <link rel="stylesheet" type="text/css" href="{% static 'paths/semantic/dist/semantic.min.css' %}">
+    <script
+      src="https://code.jquery.com/jquery-3.1.1.min.js"
+      integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+      crossorigin="anonymous">
+    </script>
+    <script src="static/paths/semantic/dist/semantic.min.js"></script>
+
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
   </head>
 
-  <body> 
-    <h2>Career Advisor</h2>
+  <body>
+    <h2 class="ui header">Career Advisor</h2>
 
     {% block body %}
     {% endblock %}
