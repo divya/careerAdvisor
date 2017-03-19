@@ -1,5 +1,14 @@
-<h3>Results</h3>
+{% extends 'paths/base.html' %}
 
-{% for r in results %}
-  <p>{{ r }}</p><br
-{% endfor %}
+{% block body %}
+
+  {% if results %}
+    <h2>Results</h2>
+    {% for r in results %}
+      <p>{{ r }}</p><br
+    {% endfor %}
+  {% else %}
+    <h2>No Results</h2>
+  {% endif %}
+
+{% endblock %}

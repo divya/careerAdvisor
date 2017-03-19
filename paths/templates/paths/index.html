@@ -1,25 +1,51 @@
+{% extends 'paths/base.html' %}
 
+{% block body %}
 
-<form action="{% url 'paths:getTrajectories' %}" method="POST">
-  {% csrf_token %}
-  <h3>From</h3>
-  <select name="fromNode">
-    {% for job in jobs %}
-        <option value="{{ job.node_id }}" name="fromNode">{{ job.node_title }}</option>
-    {% endfor %}
-  </select>
+  <form action="{% url 'paths:getTrajectories' %}" method="POST">
+    {% csrf_token %}
+    <h3>From</h3>
+    <p>Select your current job title</p>
 
+    <input id="from" type="text" name="fromNode" value="fromNode"/>
+
+     <!-- <select name="fromNode">
+      {# {% for job in jobs %}
+          <option value="{{ job.node_id }}" name="fromNode">{{ job.node_title }}</option>
+      {% endfor %} #}
+    </select> -->
+
+    <br>
+
+    <h3>To</h3>
+    <p>See paths from your current position to a different job title</p>
+
+    <input id="to" type="text" name="toNode" value="toNode"/>
+
+    <!--<select name="toNode">
+      {# {% for job in jobs %}
+          <option value="{{ job.node_id }}" name="toNode">{{ job.node_title }}</option>
+      {% endfor %} #}-->
+    </select>
+    <br><br>
+    <input type="submit" value="Show Paths">
+  </form>
   <br>
 
-  <h3>To</h3>
-  <select name="toNode">
-    {% for job in jobs %}
-        <option value="{{ job.node_id }}" name="toNode">{{ job.node_title }}</option>
-    {% endfor %}
-  </select>
-  <br><br>
-  <input type="submit" value="Show Paths">
-</form>
+  <script type="text/javascript">
+    $(document).ready(function(){
+     $( "input#from" ).autocomplete({
+        source: "{% url 'paths:autocomplete_job' %}",
+        minLength: 2
+      });
+    });
 
-<br>
-<!-- <a href="/paths/getTrajectories">Show Trajectories</a> -->
+    $(document).ready(function(){
+     $( "input#to" ).autocomplete({
+        source: "{% url 'paths:autocomplete_job' %}",
+        minLength: 2
+      });
+    });
+  </script>
+
+{% endblock %}

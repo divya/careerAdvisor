@@ -46,6 +46,9 @@ class Nodes(models.Model):
     node_type_id = models.IntegerField()
     node_title = models.TextField()
 
+    def __unicode__(self):
+        return self.node_title
+
     class Meta:
         managed = False
         db_table = 'Nodes'
