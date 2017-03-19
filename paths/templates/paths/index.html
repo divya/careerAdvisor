@@ -1,1 +1,25 @@
-<a href="/paths/getTrajectories">Show Trajectories</a>
+
+
+<form action="{% url 'paths:getTrajectories' %}" method="POST">
+  {% csrf_token %}
+  <h3>From</h3>
+  <select name="fromNode">
+    {% for job in jobs %}
+        <option value="{{ job.node_id }}" name="fromNode">{{ job.node_title }}</option>
+    {% endfor %}
+  </select>
+
+  <br>
+
+  <h3>To</h3>
+  <select name="toNode">
+    {% for job in jobs %}
+        <option value="{{ job.node_id }}" name="toNode">{{ job.node_title }}</option>
+    {% endfor %}
+  </select>
+  <br><br>
+  <input type="submit" value="Show Paths">
+</form>
+
+<br>
+<!-- <a href="/paths/getTrajectories">Show Trajectories</a> -->

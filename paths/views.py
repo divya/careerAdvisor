@@ -5,12 +5,15 @@ from django.http import HttpResponse
 # Create your views here.
 
 def index(request):
-    return render(request, 'paths/index.html')
+
+    jobs = Nodes.objects.order_by('node_title')
+
+    return render(request, 'paths/index.html', {'jobs': jobs})
 
 def getTrajectories(request):
 
-    toNode = Nodes.objects.all()[0]
-    fromNode = Nodes.objects.all()[65]
+    fromNode = Nodes.objects.get(pk=request.POST['fromNode'])
+    toNode = Nodes.objects.get(pk=request.POST['toNode'])
 
     resusr = Users.objects.all()
     finalrescount = 0;
@@ -37,7 +40,6 @@ def getTrajectories(request):
                 if type(t.end_date_year_month_int) != int:
                     t.end_date_year_month_int = 9999
                     t.save()
-                    print(t.end_date_year_month_int)
 
             restraj.sort(key=lambda x: x.end_date_year_month_int)
 
@@ -61,5 +63,5 @@ def getTrajectories(request):
             else:
                 result += " -> " + str(node)
         allResults += [result]
-    print(len(allResults))
+
     return render(request, 'paths/getTrajectories.html', {'results': allResults})
