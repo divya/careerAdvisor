@@ -2,6 +2,8 @@ from django.shortcuts import render
 from .models import Users, Nodes, Trajectoryentries
 from django.http import HttpResponse
 from django.utils.encoding import python_2_unicode_compatible
+from django.core.paginator import Paginator
+
 import json
 
 
@@ -46,11 +48,9 @@ def getTrajectories(request):
         fromdates = [9999 if x == None else x for x in fromdates]
         todates = [9999 if x == None else x for x in todates]
 
-        # run by Prerna
         if tocount>0 and fromcount>0 and max(fromdates)<min(todates):
             restraj = list(Trajectoryentries.objects.all().filter(usr_id = usr_id))
 
-            # run by Prerna
             for t in restraj:
                 if type(t.end_date_year_month_int) != int:
                     t.end_date_year_month_int = 9999
@@ -63,20 +63,28 @@ def getTrajectories(request):
 
 
     allResults = []
+    decriptions = {}
     ri = 0
     for r in finalres:
 
         ri = ri + 1
         ni = 0
-        result = ''
+        result = []
         for u in list(r):
 
             ni = ni + 1
-            node = Nodes.objects.get(node_id = u.node_id).node_title
-            if ni == 1:
-                result += str(ri) + " (usr#" + str(u.usr_id) + ") : " +  str(node)
-            else:
-                result += " -> " + str(node)
+            node = Nodes.objects.get(node_id = u.node_id)
+            # if ni == 1:
+            result += [(u, node)]
+                # result += str(ri) + " (usr#" + str(u.usr_id) + ") : " +  str(node)
+            # else:
+            #     result += " -> " + str(node)
         allResults += [result]
 
-    return render(request, 'paths/getTrajectories.html', {'results': allResults})
+
+    context = {
+        'results': allResults,
+        'fromNode': fromNode,
+        'toNode': toNode
+    }
+    return render(request, 'paths/getTrajectories.html', context)

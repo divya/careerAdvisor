@@ -1,0 +1,25 @@
+#result{
+  overflow-y: auto;
+  /*white-space: nowrap;*/
+}
+
+#job-desc{
+  text-wrap: none;
+}
+
+/*#path-heading{
+  background-color: #056a6b;
+}*/
+
+#path-heading{
+  color: black;
+  text-align: center;
+}
+
+/*.title{
+  color: #056a6b !important;
+}*/
+
+.data-tooltip{
+  z-index:-1 !important;
+}

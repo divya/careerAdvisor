@@ -10,6 +10,8 @@
 
 
     <link rel="stylesheet" type="text/css" href="{% static 'paths/semantic/dist/semantic.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'paths/semantic/dist/custom.css' %}">
+
     <script
       src="https://code.jquery.com/jquery-3.1.1.min.js"
       integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
@@ -17,13 +19,26 @@
     </script>
     <script src="static/paths/semantic/dist/semantic.min.js"></script>
 
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-1.12.4.js"></script> -->
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="{% static 'paths/main.js' %}"></script>
+
+
+
+    <div class="ui large top fixed menu">
+      <div class="header item">
+        Career Advisor
+      </div>
+      <div class="right menu">
+        <a class="active item" href="{% url 'paths:index'%}"><i class="road icon"></i>Path Finder</a>
+        <a class="disabled item"><i class="user icon"></i>Profile</a>
+      </div>
+    </div>
+    <br><br>
+
   </head>
 
   <body>
-    <h2 class="ui header">Career Advisor</h2>
-
     {% block body %}
     {% endblock %}
   </body>

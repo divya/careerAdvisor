@@ -1,14 +1,40 @@
 {% extends 'paths/base.html' %}
+{% load i18n %}
 
 {% block body %}
 
-  {% if results %}
-    <h2>Results</h2>
-    {% for r in results %}
-      <p>{{ r }}</p><br
-    {% endfor %}
-  {% else %}
+  <h2 id="path-heading">{{ fromNode.node_title}} <i class="long arrow right icon"></i>{{ toNode.node_title }}</h2>
+
+  {% for path in results %}
+    <div class="ui steps" id="result">
+      {% trans "step" as step %}
+      {% for job in path %}
+        <!-- <p>{{ job. }}</p> -->
+        {% if job.1.node_title == fromNode.node_title or job.1.node_title == toNode.node_title %}
+          {% trans "active step" as step %}
+        {% endif %}
+        <div class="{{ step }}">
+          <div class="content" >
+            <div class="title" id="{{ job.0.description }}" >{{ job.1.node_title }}</div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% empty %}
     <h2>No Results</h2>
-  {% endif %}
+  {% endfor %}
+
+  <div class="ui basic modal hidden" id="thismodal">
+    
+  </div>
 
 {% endblock %}
+
+<script type="text/javascript">
+$(document).ready(function() {
+  function showModal() {
+    $('.ui.modal').innerHTML = this.id;
+    $('.ui.modal').modal('show');
+  };
+});
+</script>

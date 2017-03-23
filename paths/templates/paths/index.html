@@ -7,7 +7,10 @@
     <h3>From</h3>
     <p>Select your current job title</p>
 
-    <input id="from" type="text" name="fromNode"/>
+    <div class="ui fluid icon input">
+      <input id="from" type="text" name="fromNode" placeholder="Begin typing"/>
+      <i class="write icon"></i>
+    </div>
 
      <!-- <select name="fromNode">
       {# {% for job in jobs %}
@@ -20,7 +23,11 @@
     <h3>To</h3>
     <p>See paths from your current position to a different job title</p>
 
-    <input id="to" type="text" name="toNode"/>
+    <div class="ui fluid icon input">
+      <input id="to" type="text" name="toNode" placeholder="Begin typing"/>
+      <i class="write icon"></i>
+    </div>
+
 
     <!--<select name="toNode">
       {# {% for job in jobs %}
@@ -32,6 +39,30 @@
   </form>
   <br>
 
+  
+
+  <!-- <div class="ui tablet stackable bottom attached steps" id="result">
+
+  <div class="active step">
+    <i class="dollar icon"></i>
+    <div class="content">
+      <div class="title">Billing</div>
+      <div class="description">Enter billing information</div>
+      <p class="transition hidden">A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.</p>
+
+    </div>
+  </div>
+  <div class="active step">
+    <i class="dollar icon"></i>
+    <div class="content">
+      <div class="title">Billing</div>
+      <div class="description">Enter billing information</div>
+    </div>
+  </div>
+</div> -->
+
+
+
   <script type="text/javascript">
     $(document).ready(function(){
      $( "input#from" ).autocomplete({
@@ -41,11 +72,12 @@
     });
 
     $(document).ready(function(){
-     $( "input#to" ).autocomplete({
+      $( "input#to" ).autocomplete({
         source: "{% url 'paths:autocomplete_job' %}",
         minLength: 1
       });
     });
+
   </script>
 
 {% endblock %}
