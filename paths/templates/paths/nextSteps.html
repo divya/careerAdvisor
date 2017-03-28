@@ -4,17 +4,17 @@
 {% block body %}
 
   <br>
-  <h2 id="path-heading">{{ fromNode.node_title}} <i class="long arrow right icon"></i>{{ toNode.node_title }}
-  <br>
+  <h2 id="path-heading">{{ fromNode.node_title}} <i class="long arrow right icon"></i>
+  <!-- <br> -->
 
-  <form action="{% url 'paths:sortBySimilarity'%}" method="POST">
+  <!-- <form action="{% url 'paths:sortBySimilarity'%}" method="POST">
     {% csrf_token %}
     <input type="hidden" id="from" type="text" name="fromNode" value="{{ fromNode.node_title }}"/>
     <input type="hidden" id="to" type="text" name="toNode" value="{{ toNode.node_title }}"/>
     <button class="ui basic button" type="submit" id="similarity-sort">
       Sort by Similarity
     </button>
-  </form>
+  </form> -->
   </h2>
   <br>
 
@@ -29,16 +29,17 @@
         </a>
 
         {% trans "step before" as step %}
-        {% trans "false" as ended %}
+        {% trans "false" as next %}
+        {% trans "false" as hideNext %}
 
         {% for job in path %}
-          {% if job.1.node_title == fromNode.node_title %}
+          {% if job.1.node_title == fromNode.node_title and next == "false" %}
             {% trans "active step" as step %}
-          {% elif job.1.node_title == toNode.node_title and ended == "false" %}
-            {% trans "active step" as step %}
-            {% trans "true" as ended %}
-          {% elif ended == "true" %}
+            {% trans "true" as next %}
+          {% elif hideNext == "true" %}
             {% trans "step after" as step %}
+          {% elif next == "true" %}
+            {% trans "true" as hideNext %}
           {% endif %}
 
           <a class="{{ step }} {{ path.0.0.id }}" onclick="showDescription('{{job.0.description|escapejs}}')">

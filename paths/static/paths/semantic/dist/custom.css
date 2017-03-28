@@ -1,7 +1,17 @@
 #result{
-  overflow-y: auto;
+  /*overflow-x: scroll !important;*/
+  overflow-x: scroll !important;
+  /*display: inline;*/
   /*white-space: nowrap;*/
+  max-width: 90% !important;
+
 }
+
+.all-results{
+  width: 90% !important;
+  margin-left: 5% !important;
+}
+
 
 #job-desc{
   text-wrap: none;
@@ -22,4 +32,66 @@
 
 .data-tooltip{
   z-index:-1 !important;
+}
+
+.before{
+  display: none !important;
+}
+
+.after{
+  display: none !important;
+}
+
+.show{
+  display: inline !important;
+}
+
+h1{
+  width: 80% !important;
+  margin-left: 10%;
+  margin-top: 5%;
+  margin-bottom: 2%;
+  font-size: 2.5em;
+  color: #056a6b;
+  /*padding: 5%;*/
+}
+
+form#home{
+  width: 80% !important;
+  margin-left: 10%;
+  /*margin-top: 5%;*/
+  /*padding: 5%;*/
+  /*background-color: #056a6b;*/
+}
+/*056a6b*/
+form#home h2, p{
+  color: black;
+  line-height: 0.5em;
+}
+
+.from-form, .to-form{
+  background-color: #ededed;
+  padding: 5%;
+}
+
+.active .title{
+  color: #056a6b !important;
+}
+
+#similarity-sort{
+  margin-top: 1%;
+}
+
+label{
+  color:#056a6b;
+  padding-left: 10px;
+  font-size: 1.2em;
+  display: inline;
+  font-weight: bolder;
+}
+
+.target-desc{
+  line-height: 1.2em;
+  padding-top: 2%;
+  /*margin-left: 6%;*/
 }

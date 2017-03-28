@@ -17,18 +17,21 @@
       integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
       crossorigin="anonymous">
     </script>
+
+    <!-- <script src="{% static 'paths/semantic/dist/semantic.min.js'"></script> -->
+
     <script src="static/paths/semantic/dist/semantic.min.js"></script>
 
     <!-- <script src="https://code.jquery.com/jquery-1.12.4.js"></script> -->
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script src="{% static 'paths/main.js' %}"></script>
+    <script src="static/paths/main.js"></script>
 
 
 
     <div class="ui large top fixed menu">
-      <div class="header item">
+      <a class="header item" href="{% url 'paths:index'%}">
         Career Advisor
-      </div>
+      </a>
       <div class="right menu">
         <a class="active item" href="{% url 'paths:index'%}"><i class="road icon"></i>Path Finder</a>
         <a class="disabled item"><i class="user icon"></i>Profile</a>

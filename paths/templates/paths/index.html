@@ -2,64 +2,55 @@
 
 {% block body %}
 
-  <form action="{% url 'paths:getTrajectories' %}" method="POST">
+  <h1>Explore career possibilities...</h1>
+  <form name="find-paths" id="home" action="{% url 'paths:getTrajectories'%}" method="POST">
     {% csrf_token %}
-    <h3>From</h3>
-    <p>Select your current job title</p>
+    <div class="from-form">
+      <h2>From</h2>
+      <p>Select your current job title</p>
 
-    <div class="ui fluid icon input">
-      <input id="from" type="text" name="fromNode" placeholder="Begin typing"/>
-      <i class="write icon"></i>
+      <div class="ui fluid icon input">
+        <input id="from" type="text" name="fromNode" placeholder="Begin typing"/>
+        <i class="write icon"></i>
+      </div>
     </div>
-
-     <!-- <select name="fromNode">
-      {# {% for job in jobs %}
-          <option value="{{ job.node_id }}" name="fromNode">{{ job.node_title }}</option>
-      {% endfor %} #}
-    </select> -->
 
     <br>
 
-    <h3>To</h3>
-    <p>See paths from your current position to a different job title</p>
+    <div class="to-form">
+      <h2>Show Paths To</h2>
 
-    <div class="ui fluid icon input">
-      <input id="to" type="text" name="toNode" placeholder="Begin typing"/>
-      <i class="write icon"></i>
+      <br>
+      <div class="ui grid">
+        <div class="eight wide column">
+          <input type="radio" name="output-type" value="not-next"><label>End Job</label>
+          <p class="target-desc">See paths from your current position to your target position</p>
+          <div class="ui fluid icon input">
+            <input id="to" type="text" name="toNode" placeholder="Begin typing"/>
+            <i class="write icon"></i>
+          </div>
+        </div>
+
+        <div class="one wide column">
+          <div class="ui vertical divider">
+            Or
+          </div>
+        </div>
+
+        <div class="seven wide column">
+          <input type="radio" name="output-type" value="next" onclick="clearOther()"><label>Next Steps</label>
+          <p class="target-desc">See common job titles following your current position</p>
+        </div>
+      </div>
     </div>
-
-
-    <!--<select name="toNode">
-      {# {% for job in jobs %}
-          <option value="{{ job.node_id }}" name="toNode">{{ job.node_title }}</option>
-      {% endfor %} #}-->
-    </select>
     <br><br>
-    <input type="submit" value="Show Paths">
+    <button class="ui button" type="submit">
+      <i class="send icon"></i>
+      Show Paths
+    </button>
+
   </form>
   <br>
-
-  
-
-  <!-- <div class="ui tablet stackable bottom attached steps" id="result">
-
-  <div class="active step">
-    <i class="dollar icon"></i>
-    <div class="content">
-      <div class="title">Billing</div>
-      <div class="description">Enter billing information</div>
-      <p class="transition hidden">A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.</p>
-
-    </div>
-  </div>
-  <div class="active step">
-    <i class="dollar icon"></i>
-    <div class="content">
-      <div class="title">Billing</div>
-      <div class="description">Enter billing information</div>
-    </div>
-  </div>
-</div> -->
 
 
 
@@ -77,6 +68,18 @@
         minLength: 1
       });
     });
+
+    document.getElementById("to").addEventListener("click", myFunction);
+
+    function myFunction() {
+        selected = document.forms['find-paths']['output-type'];
+        selected.value = "not-next";
+    };
+
+    function clearOther(){
+      e = document.getElementById("to")
+      e.value = ""
+    }
 
   </script>
 
