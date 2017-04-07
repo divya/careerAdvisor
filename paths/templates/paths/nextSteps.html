@@ -4,18 +4,11 @@
 {% block body %}
 
   <br>
-  <h2 id="path-heading">{{ fromNode.node_title}} <i class="long arrow right icon"></i>
-  <!-- <br> -->
-
-  <!-- <form action="{% url 'paths:sortBySimilarity'%}" method="POST">
-    {% csrf_token %}
-    <input type="hidden" id="from" type="text" name="fromNode" value="{{ fromNode.node_title }}"/>
-    <input type="hidden" id="to" type="text" name="toNode" value="{{ toNode.node_title }}"/>
-    <button class="ui basic button" type="submit" id="similarity-sort">
-      Sort by Similarity
-    </button>
-  </form> -->
-  </h2>
+  <i class="large icons">
+    <i class="twitter icon"></i>
+    <i class="inverted corner add icon"></i>
+  </i>
+  <h2 id="path-heading">{{ fromNode.node_title}} <i class="long arrow right icon"></i></h2>
   <br>
 
   <div class="all-results">
@@ -44,15 +37,23 @@
 
           <a class="{{ step }} {{ path.0.0.id }}" onclick="showDescription('{{job.0.description|escapejs}}')">
             <div class="content" >
-              <div class="title">{{ job.1.node_title }}</div>
+              <div class="title">
+                {% if job.2 != "" %}
+                  {{ job.1.node_title }}
+                {% else %}
+                  <i class="{{ job.2 }} student icon"></i>
+                {% endif %}
+              </div>
             </div>
           </a>
         {% endfor %}
+
         <a class="active step" onclick="toggleAfter('{{ path.0.0.id }}')" style="width:10px !important;">
           <div class="content" >
             <div class="title"><i class="add circle icon" id="{{ path.0.0.id }}-after-icon"></i></div>
           </div>
         </a>
+
       </div>
       <br>
     {% empty %}

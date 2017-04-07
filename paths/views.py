@@ -30,58 +30,6 @@ def getTrajectories(request):
 
     if output == "next":
         return nextSteps(request)
-        # toNode = Nodes.objects.get(node_title=request.POST['toNode'])
-        # resusr = Users.objects.all()
-        # finalrescount = 0;
-        # finalres = []
-        #
-        # for ru in resusr:
-        #     usr_id = ru.usr_id
-        #
-        #     cur = Trajectoryentries.objects.all().filter(usr_id = usr_id, node_id = fromNode.node_id)
-        #     fromcount = len(cur)
-        #     fromdates = [f.end_date_year_month_int for f in cur]
-        #
-        #     fromdates = [9999 if x == None else x for x in fromdates]
-        #
-        #     if fromcount>0:
-        #         restraj = list(Trajectoryentries.objects.all().filter(usr_id = usr_id))
-        #
-        #         for t in restraj:
-        #             if type(t.end_date_year_month_int) != int:
-        #                 t.end_date_year_month_int = 999999
-        #                 t.save()
-        #
-        #         restraj.sort(key=lambda x: x.end_date_year_month_int)
-        #
-        #         finalrescount = finalrescount+1
-        #         finalres.append(restraj)
-        #
-        # allResults = []
-        # decriptions = {}
-        # ri = 0
-        # for r in finalres:
-        #     # r = restraj -> [Trajectoryentry, Trajectoryentry]
-        #     ri = ri + 1
-        #     ni = 0
-        #     result = []
-        #     for u in list(r):
-        #
-        #         ni = ni + 1
-        #         node = Nodes.objects.get(node_id = u.node_id)
-        #         result += [(u, node)]
-        #
-        #     allResults += [result]
-        #     # [ [(u,node), (u,node), (u,node)], [(u,node), (u,node), (u,node)] ]
-        #
-        # # if sortType == "similarity":
-        # #     allResults = sortBySimilarity(allResults)
-        #
-        # context = {
-        #     'results': allResults,
-        #     'fromNode': fromNode
-        # }
-        # return render(request, 'paths/nextSteps.html', context)
 
     else:
         toNode = Nodes.objects.get(node_title=request.POST['toNode'])
@@ -119,7 +67,6 @@ def getTrajectories(request):
 
 
         allResults = []
-        decriptions = {}
         ri = 0
         for r in finalres:
             # r = restraj -> [Trajectoryentry, Trajectoryentry]
@@ -130,7 +77,15 @@ def getTrajectories(request):
 
                 ni = ni + 1
                 node = Nodes.objects.get(node_id = u.node_id)
-                result += [(u, node)]
+
+                #encode degrees
+                degree = ""
+                if node.node_type_id == 1:
+                    degree = getDegreeType(node)
+
+                result += [(u, node, degree)]
+
+
 
             allResults += [result]
             # [ [(u,node), (u,node), (u,node)], [(u,node), (u,node), (u,node)] ]
@@ -144,6 +99,23 @@ def getTrajectories(request):
             'toNode': toNode
         }
         return render(request, 'paths/getTrajectories.html', context)
+
+def getDegreeType(node):
+    associates = ["associate","aa", "a.a"]
+    bachelors = ["b.s.", "bs", "bachelor", "be ", "ba ", "bacc"]
+    masters = ["master", "m.s", "ms ", "grad"]
+    phd = ["phd", "post", "ph.d", "doct"]
+    certification = ["certif"]
+
+    degrees = [associates, bachelors, masters, phd, certification]
+    color = ["red", "blue", "green", "purple", "orange"]
+
+    title = node.node_title.lower()
+    for degree in degrees:
+        for i in range(len(degree)):
+            if degree[i] in title:
+                return color[i]
+    return "black"
 
 def nextSteps(request):
     fromNode = Nodes.objects.get(node_title=request.POST['fromNode'])
@@ -187,11 +159,18 @@ def nextSteps(request):
             node = Nodes.objects.get(node_id = u.node_id)
             result += [(u, node)]
 
-        allResults += [result]
+        # [Intern, Dev, SWE, SWE, Dev, SWE]
+        nodeTitles = [i[1].node_title for i in result]
+        print(nodeTitles[::-1])
+        firstOccurrence = nodeTitles.index(fromNode.node_title)
+        lastOccurrence = nodeTitles[::-1].index(fromNode.node_title)#[i for i, x[1].node_title in enumerate(result) if x[1].node_title == fromNode]
+
+        # lastOccurrence: 0
+        # firstOccurrence: 2
+        if lastOccurrence != 0 and firstOccurrence != len(nodeTitles)-1: # firstOccurrence == len(nodeTitles)-2 or firstOccurrence:
+            allResults += [result]
         # [ [(u,node), (u,node), (u,node)], [(u,node), (u,node), (u,node)] ]
 
-    # if sortType == "similarity":
-    #     allResults = sortBySimilarity(allResults)
 
     context = {
         'results': allResults,

@@ -13,9 +13,9 @@ $(document).ready(function() {
 
 });
 
-
-function showDescription(desc){
-  $('#thismodal').html("<h2>Description</h2><br>" +
+function showDescription(desc, title){
+  debugger;
+  $('#thismodal').html("<h2>" + title + "</h2><br>" +
     desc);
   $('.ui.modal').modal('show');      //things to do on click
 };
