@@ -4,10 +4,13 @@
 {% block body %}
 
   <br>
-  <i class="large icons">
-    <i class="twitter icon"></i>
-    <i class="inverted corner add icon"></i>
+
+  <i class="big icons" id="degree-key">
+    <i class="student icon"></i>
+    <i class="help circle corner icon"></i>
   </i>
+
+
   <h2 id="path-heading">{{ fromNode.node_title}} <i class="long arrow right icon"></i></h2>
   <br>
 
@@ -16,7 +19,7 @@
       <div class="ui steps" id="result">
 
         <a class="active step" onclick="togglePrevious('{{ path.0.0.id }}')">
-          <div class="content" >
+          <div class="content">
             <div class="title"><i class="add circle icon" id="{{ path.0.0.id }}-before-icon"></i></div>
           </div>
         </a>
@@ -35,10 +38,10 @@
             {% trans "true" as hideNext %}
           {% endif %}
 
-          <a class="{{ step }} {{ path.0.0.id }}" onclick="showDescription('{{job.0.description|escapejs}}')">
+          <a class="{{ step }} {{ path.0.0.id }}" onclick="showDescription('{{job.0.description|escapejs}}', '{{job.1.node_title|escapejs}}')">
             <div class="content" >
               <div class="title">
-                {% if job.2 != "" %}
+                {% if job.2 == "" %}
                   {{ job.1.node_title }}
                 {% else %}
                   <i class="{{ job.2 }} student icon"></i>

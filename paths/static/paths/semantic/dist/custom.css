@@ -23,7 +23,7 @@
 
 #path-heading{
   color: black;
-  text-align: center;
+  text-align: center !important;
 }
 
 /*.title{
@@ -94,4 +94,8 @@ label{
   line-height: 1.2em;
   padding-top: 2%;
   /*margin-left: 6%;*/
+}
+
+#degree-key{
+  margin-left: 5% !important;
 }

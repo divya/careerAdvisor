@@ -111,9 +111,9 @@ def getDegreeType(node):
     color = ["red", "blue", "green", "purple", "orange"]
 
     title = node.node_title.lower()
-    for degree in degrees:
-        for i in range(len(degree)):
-            if degree[i] in title:
+    for i in range(len(degrees)):
+        for substr in degrees[i]:
+            if substr in title:
                 return color[i]
     return "black"
 
@@ -157,11 +157,17 @@ def nextSteps(request):
 
             ni = ni + 1
             node = Nodes.objects.get(node_id = u.node_id)
-            result += [(u, node)]
+
+            #encode degrees
+            degree = ""
+            if node.node_type_id == 1:
+                degree = getDegreeType(node)
+
+            result += [(u, node, degree)]
 
         # [Intern, Dev, SWE, SWE, Dev, SWE]
         nodeTitles = [i[1].node_title for i in result]
-        print(nodeTitles[::-1])
+        # print(nodeTitles[::-1])
         firstOccurrence = nodeTitles.index(fromNode.node_title)
         lastOccurrence = nodeTitles[::-1].index(fromNode.node_title)#[i for i, x[1].node_title in enumerate(result) if x[1].node_title == fromNode]
 
@@ -228,7 +234,14 @@ def sortBySimilarity(request):
 
             ni = ni + 1
             node = Nodes.objects.get(node_id = u.node_id)
-            result += [(u, node)]
+
+            degree = ""
+            if node.node_type_id == 1:
+                degree = getDegreeType(node)
+
+            result += [(u, node, degree)]
+
+            # result += [(u, node)]
 
         allResults += [result]
 
